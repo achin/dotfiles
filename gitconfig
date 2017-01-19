@@ -1,0 +1,21 @@
+[alias]
+    st = status
+    sh = show
+    ci = commit
+    di = diff
+    co = checkout
+    br = branch
+    ll = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) -%C(green)%d%C(reset) %s %C(cyan)[%an]%C(reset) %C(bold green)(%ar)%C(reset)'
+[user]
+    name = Alex Chin
+    email = alex.ba.chin@gmail.com
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+[push]
+    default = simple
+[core]
+    excludesfile = ~/.gitignore_global
+    pager = less -S
