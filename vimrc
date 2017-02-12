@@ -21,6 +21,7 @@ Plugin 'tpope/vim-ragtag'
 Plugin 'tpope/vim-vinegar'
 Plugin 'danro/rename.vim'
 Plugin 'vim-airline/vim-airline'
+Plugin 'mileszs/ack.vim'
 
 " editing
 Plugin 'tpope/vim-repeat'
@@ -114,3 +115,7 @@ function! <SID>StripTrailingWhitespace()
 endfunction
 
 nnoremap <silent> <leader><space> :call <SID>StripTrailingWhitespace()<CR>
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
