@@ -16,9 +16,7 @@ Plugin 'groenewege/vim-less'
 Plugin 'plasticboy/vim-markdown'
 
 " features
-Plugin 'vim-scripts/bufexplorer.zip'
 Plugin 'tpope/vim-ragtag'
-Plugin 'tpope/vim-vinegar'
 Plugin 'danro/rename.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'mileszs/ack.vim'
