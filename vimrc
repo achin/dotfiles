@@ -120,7 +120,7 @@ set background=light
 let g:airline_powerline_fonts = 1
 
 " trailing whitespace
-function! ShouldMatchWhitespace()
+function! <SID>ShouldMatchWhitespace()
     for ft in ['unite']
         if ft ==# &filetype | return 0 | endif
     endfor
@@ -141,11 +141,11 @@ function! <SID>StripTrailingWhitespace()
     endif
 endfunction
 
-highlight default ExtraWhitespace ctermbg=darkred guibg=red
+highlight default ExtraWhitespace ctermbg=red guibg=red
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd BufWinEnter * if ShouldMatchWhitespace() | match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * if ShouldMatchWhitespace() | match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * if ShouldMatchWhitespace() | match ExtraWhitespace /\s\+$/
+autocmd BufRead,BufNew,BufWinEnter * if <SID>ShouldMatchWhitespace() | match ExtraWhitespace /\s\+$/ | else | match ExtraWhitespace /^^/ | endif
+autocmd InsertEnter * if <SID>ShouldMatchWhitespace() | match ExtraWhitespace /\s\+\%#\@<!$/ | endif
+autocmd InsertLeave * if <SID>ShouldMatchWhitespace() | match ExtraWhitespace /\s\+$/ | endif
 
 nnoremap <silent> <leader><space> :call <SID>StripTrailingWhitespace()<CR>
 
