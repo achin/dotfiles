@@ -28,6 +28,11 @@ Plugin 'tpope/vim-commentary'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-entire'
 
+" unite
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/neoyank.vim'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -94,6 +99,13 @@ nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>eV :e $MYVIMRC<cr>
 nnoremap <leader>s :set spell!<cr>
+
+" unite settings
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <leader>ff :<C-u>Unite -no-split -prompt=»\  -buffer-name=files   -start-insert file<cr>
+nnoremap <leader>ft :<C-u>Unite -no-split -prompt=»\  -buffer-name=files   -start-insert file_rec/async:!<cr>
+nnoremap <leader>fe :<C-u>Unite -no-split -prompt=»\  -buffer-name=buffer  buffer<cr>
+nnoremap <leader>fy :<C-u>Unite -no-split -prompt=»\  -buffer-name=yank    history/yank<cr>
 
 colorscheme solarized
 set background=light
