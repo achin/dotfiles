@@ -94,14 +94,24 @@ nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>eV :e $MYVIMRC<cr>
-nnoremap <leader>s :set spell!<cr>
 
 " unite settings
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>ff :<C-u>Unite -no-split -prompt=»\  -buffer-name=files   -start-insert file<cr>
-nnoremap <leader>ft :<C-u>Unite -no-split -prompt=»\  -buffer-name=files   -start-insert file_rec/async:!<cr>
-nnoremap <leader>fe :<C-u>Unite -no-split -prompt=»\  -buffer-name=buffer  buffer<cr>
-nnoremap <leader>fy :<C-u>Unite -no-split -prompt=»\  -buffer-name=yank    history/yank<cr>
+call unite#filters#matcher_default#use(['matcher_fuzzy', 'sorter_selecta'])
+
+nnoremap <leader>f :<C-u>Unite -no-split -prompt=»\  -buffer-name=files   -start-insert file<cr>
+nnoremap <leader>t :<C-u>Unite -no-split -prompt=»\  -buffer-name=files   -start-insert file_rec/async:!<cr>
+nnoremap <leader>b :<C-u>Unite -no-split -prompt=»\  -buffer-name=buffer  buffer<cr>
+nnoremap <leader>g :<C-u>Unite -no-split -prompt=»\  -buffer-name=grep    grep:.<cr>
+nnoremap <leader>y :<C-u>Unite -no-split -prompt=»\  -buffer-name=yank    history/yank<cr>
+
+if executable('ag')
+    let g:unite_source_rec_async_command =
+        \ ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
+
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts =
+        \ '-i --vimgrep --nocolor --nogroup '
+endif
 
 " interface
 colorscheme solarized
@@ -110,7 +120,7 @@ set background=light
 let g:airline_powerline_fonts = 1
 
 " trailing whitespace
-function! <SID>ShouldMatchWhitespace()
+function! ShouldMatchWhitespace()
     for ft in ['unite']
         if ft ==# &filetype | return 0 | endif
     endfor
@@ -133,9 +143,9 @@ endfunction
 
 highlight default ExtraWhitespace ctermbg=darkred guibg=red
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd BufWinEnter * if <SID>ShouldMatchWhitespace() | match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * if <SID>ShouldMatchWhitespace() | match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * if <SID>ShouldMatchWhitespace() | match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * if ShouldMatchWhitespace() | match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * if ShouldMatchWhitespace() | match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * if ShouldMatchWhitespace() | match ExtraWhitespace /\s\+$/
 
 nnoremap <silent> <leader><space> :call <SID>StripTrailingWhitespace()<CR>
 
