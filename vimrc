@@ -67,11 +67,7 @@ set foldlevel=99
 set mouse=a
 
 autocmd ColorScheme * highlight LineNr ctermfg=6 ctermbg=100
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd ColorScheme * hi! link SignColumn LineNr
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 autocmd BufWinEnter * silent! :%foldopen!
 
@@ -107,10 +103,19 @@ nnoremap <leader>ft :<C-u>Unite -no-split -prompt=»\  -buffer-name=files   -sta
 nnoremap <leader>fe :<C-u>Unite -no-split -prompt=»\  -buffer-name=buffer  buffer<cr>
 nnoremap <leader>fy :<C-u>Unite -no-split -prompt=»\  -buffer-name=yank    history/yank<cr>
 
+" interface
 colorscheme solarized
 set background=light
 
 let g:airline_powerline_fonts = 1
+
+" trailing whitespace
+function! <SID>ShouldMatchWhitespace()
+    for ft in ['unite']
+        if ft ==# &filetype | return 0 | endif
+    endfor
+    return 1
+endfunction
 
 function! <SID>StripTrailingWhitespace()
     if &modifiable
@@ -126,8 +131,15 @@ function! <SID>StripTrailingWhitespace()
     endif
 endfunction
 
+highlight default ExtraWhitespace ctermbg=darkred guibg=red
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd BufWinEnter * if <SID>ShouldMatchWhitespace() | match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * if <SID>ShouldMatchWhitespace() | match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * if <SID>ShouldMatchWhitespace() | match ExtraWhitespace /\s\+$/
+
 nnoremap <silent> <leader><space> :call <SID>StripTrailingWhitespace()<CR>
 
+" ack/ag
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
