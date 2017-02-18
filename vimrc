@@ -98,11 +98,11 @@ nnoremap <leader>eV :e $MYVIMRC<cr>
 " unite settings
 call unite#filters#matcher_default#use(['matcher_fuzzy', 'sorter_selecta'])
 
-nnoremap <leader>f :<C-u>Unite -no-split -prompt=»\  -buffer-name=files   -start-insert file<cr>
-nnoremap <leader>t :<C-u>Unite -no-split -prompt=»\  -buffer-name=files   -start-insert file_rec/async:!<cr>
-nnoremap <leader>b :<C-u>Unite -no-split -prompt=»\  -buffer-name=buffer  buffer<cr>
-nnoremap <leader>g :<C-u>Unite -no-split -prompt=»\  -buffer-name=grep    grep:.<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -prompt=»\  -buffer-name=yank    history/yank<cr>
+nnoremap <leader>f :<C-u>Unite -no-split -prompt=»\  -buffer-name=files  file<cr>
+nnoremap <leader>t :<C-u>Unite -no-split -prompt=»\  -buffer-name=files  file_rec/async:!<cr>
+nnoremap <leader>b :<C-u>Unite -no-split -prompt=»\  -buffer-name=buffer buffer<cr>
+nnoremap <leader>g :<C-u>Unite -no-split -prompt=»\  -buffer-name=grep   grep:.<cr>
+nnoremap <leader>y :<C-u>Unite -no-split -prompt=»\  -buffer-name=yank   history/yank<cr>
 
 if executable('ag')
     let g:unite_source_rec_async_command =
