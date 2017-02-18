@@ -118,6 +118,7 @@ colorscheme solarized
 set background=light
 
 let g:airline_powerline_fonts = 1
+let g:airline_detect_spell = 0
 
 " trailing whitespace
 function! <SID>ShouldMatchWhitespace()
