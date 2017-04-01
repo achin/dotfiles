@@ -1,1 +1,1 @@
-set guifont=Monaco\ for\ Powerline:h12
+set guifont=Hack:h12
