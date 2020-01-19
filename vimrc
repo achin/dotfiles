@@ -30,6 +30,9 @@ Plugin 'tpope/vim-commentary'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-entire'
 
+" clojure
+Plugin 'bhurlow/vim-parinfer'
+
 " unite
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimproc.vim'
@@ -40,8 +43,8 @@ filetype plugin indent on
 
 syntax on
 
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set smarttab
 set autoindent
@@ -73,9 +76,6 @@ autocmd ColorScheme * hi! link SignColumn LineNr
 autocmd BufWinLeave * call clearmatches()
 autocmd BufWinEnter * silent! :%foldopen!
 
-autocmd filetype html,xml setlocal tabstop=2
-autocmd filetype html,xml setlocal shiftwidth=2
-
 nnoremap j gj
 nnoremap k gk
 
@@ -99,6 +99,7 @@ nnoremap <leader>eV :e $MYVIMRC<cr>
 
 " unite settings
 call unite#filters#matcher_default#use(['matcher_fuzzy', 'sorter_selecta'])
+call unite#custom#source('file_rec/async', 'ignore_pattern', 'target/')
 
 nnoremap <leader>f :<C-u>Unite -no-split -prompt=»\  -buffer-name=files  file<cr>
 nnoremap <leader>t :<C-u>Unite -no-split -prompt=»\  -buffer-name=files  file_rec/async:!<cr>
