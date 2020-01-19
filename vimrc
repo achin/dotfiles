@@ -157,15 +157,3 @@ nnoremap <silent> <leader><space> :call <SID>StripTrailingWhitespace()<CR>
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
-
-" vinegar
-function! <SID>setup_vinegar()
-    nnoremap <buffer> q <C-^>
-    nunmap <buffer> qL
-    nunmap <buffer> qF
-    nunmap <buffer> qf
-    nunmap <buffer> qb
-    set nolist
-endfunction
-
-autocmd FileType netrw call <SID>setup_vinegar()
